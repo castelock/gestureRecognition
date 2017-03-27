@@ -5,11 +5,6 @@ import time
 # Open Camera object
 cap = cv2.VideoCapture(0)
 
-# Decrease frame size
-#cap.set(cv2.cv.CV_CAP_PROP_FRAME_WIDTH, 1000)
-#cap.set(cv2.CV_CAP_PROP_FRAME_HEIGHT, 600)
-
-
 def nothing(x):
     pass
 
@@ -40,10 +35,8 @@ cv2.createTrackbar('h', 'HSV_TrackBar', 0, 179, nothing)
 cv2.createTrackbar('s', 'HSV_TrackBar', 0, 255, nothing)
 cv2.createTrackbar('v', 'HSV_TrackBar', 0, 255, nothing)
 
-while (1):
+while (True):
 
-    # Measure execution time
-    start_time = time.time()
 
     # Capture frames from the camera
     ret, frame = cap.read()
@@ -78,7 +71,7 @@ while (1):
     # Find contours of the filtered frame
     (_, contours, hierarchy) = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
-   
+
 
     # Find Max contour area (Assume that hand is in the frame)
     max_area = 100
@@ -123,7 +116,7 @@ while (1):
     # Draw center mass
     cv2.circle(frame, centerMass, 7, [100, 0, 255], 2)
     font = cv2.FONT_HERSHEY_SIMPLEX
-    cv2.putText(frame, 'Center', tuple(centerMass), font, 2, (255, 255, 255), 2)
+    #cv2.putText(frame, 'Center', tuple(centerMass), font, 2, (255, 255, 255), 2)
 
     # Distance from each finger defect(finger webbing) to the center mass
     distanceBetweenDefectsToCenter = []
@@ -164,17 +157,9 @@ while (1):
             result = result + 1
 
     # Print number of pointed fingers
-    cv2.putText(frame, str(result), (100, 100), font, 2, (255, 255, 255), 2)
+    #cv2.putText(frame, str(result), (100, 100), font, 2, (255, 255, 255), 2)
 
-    # show height raised fingers
-    # cv2.putText(frame,'finger1',tuple(finger[0]),font,2,(255,255,255),2)
-    # cv2.putText(frame,'finger2',tuple(finger[1]),font,2,(255,255,255),2)
-    # cv2.putText(frame,'finger3',tuple(finger[2]),font,2,(255,255,255),2)
-    # cv2.putText(frame,'finger4',tuple(finger[3]),font,2,(255,255,255),2)
-    # cv2.putText(frame,'finger5',tuple(finger[4]),font,2,(255,255,255),2)
-    # cv2.putText(frame,'finger6',tuple(finger[5]),font,2,(255,255,255),2)
-    # cv2.putText(frame,'finger7',tuple(finger[6]),font,2,(255,255,255),2)
-    # cv2.putText(frame,'finger8',tuple(finger[7]),font,2,(255,255,255),2)
+
 
     # Print bounding rectangle
     x, y, w, h = cv2.boundingRect(cnts)
@@ -182,12 +167,9 @@ while (1):
 
     cv2.drawContours(frame, [hull], -1, (255, 255, 255), 2)
 
-    ##### Show final image ########
+    # Show final image
     cv2.imshow('Dilation', frame)
-    ###############################
 
-    # Print execution time
-    # print time.time()-start_time
 
     # close the output video by pressing 'ESC'
     k = cv2.waitKey(5) & 0xFF
