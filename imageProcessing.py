@@ -8,6 +8,9 @@ while(cap.isOpened()):
 
     _, frame = cap.read()
 
+    # Save an image from the webcam
+    cv2.imwrite("Openhand.png",frame)
+
     # Convert to HSV
     #hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
@@ -62,8 +65,8 @@ while(cap.isOpened()):
     # cv2.imshow("Last Drawing Contours", imgDraw2)
 
     # Moments
-    ret, thresh = cv2.threshold(grayScale, 127, 255, cv2.THRESH_BINARY)
-    image, contours, hierarchy = cv2.findContours(thresh, 1, 2)
+    # ret, thresh = cv2.threshold(grayScale, 127, 255, cv2.THRESH_BINARY)
+    # image, contours, hierarchy = cv2.findContours(thresh, 1, 2)
     # cnt = contours[0]
     # M = cv2.moments(cnt)
     # print M
@@ -73,8 +76,8 @@ while(cap.isOpened()):
     # cv2.imshow("Contour Area",area)
 
     # Convex Hull
-    hull = cv2.convexHull(contours[0])
-    cv2.imshow("Convex Hull", hull)
+    # hull = cv2.convexHull(contours[0])
+    # cv2.imshow("Convex Hull", hull)
 
     c = cv2.waitKey(0)
     if 'q' == chr(c & 255):
